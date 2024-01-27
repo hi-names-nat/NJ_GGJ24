@@ -14,14 +14,15 @@ enum struct EAmmoType : uint8
 	_556nato = 2,
 	buckshot = 3,
 	_762nato = 4,
-	
+	phaser = 5
 };
 
 UENUM()
 enum EAmmoModifier
 {
 	fmj,
-	hp
+	hp,
+	energy
 };
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
