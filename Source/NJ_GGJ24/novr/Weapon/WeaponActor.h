@@ -61,7 +61,7 @@ protected:
 	EAmmoType AmmoType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Ammo")
-	float MaxRange;	
+	float MaxRange;
 	
 	UPROPERTY(EditDefaultsOnly, Category="Properties")
 	float TimeBetweenShots = .4;
@@ -149,6 +149,9 @@ protected:
 	USoundBase* NoAmmoSound;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Sound")
 	USoundBase* ReloadSound;
+
+	UFUNCTION(BlueprintCallable, Category="Sound")
+	void PlayWeaponSound(bool hasAmmo) const;
 
 	////////////////////
 	///////	Equip

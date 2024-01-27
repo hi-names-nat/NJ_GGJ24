@@ -21,6 +21,12 @@ enum struct EWeaponType: uint8
 	Sniper	= 5,
 };
 
+UENUM(BlueprintType)
+enum struct EWeaponFireType: uint8
+{
+	Discrete = 0,
+	Continuous = 1
+};
 
 /**
  * 
@@ -40,4 +46,6 @@ public:
 	EWeaponType WeaponType;
 	// UPROPERTY(EditDefaultsOnly)
 	// UImage* UIImage;
+	UPROPERTY(EditDefaultsOnly)
+	EWeaponFireType WeaponFireType;
 };

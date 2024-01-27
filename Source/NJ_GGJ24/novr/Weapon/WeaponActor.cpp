@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "NavigationSystemTypes.h"
+#include "WeaponData.h"
 #include "Ammunition/AmmoBackpack.h"
 #include "Kismet/GameplayStatics.h"
 #include "NJ_GGJ24/novr/Player/AsPlayer.h"
@@ -75,26 +76,18 @@ void AWeaponActor::BeginFire()
 
 bool AWeaponActor::Fire()
 {
-	//bCanFire handles weapon cooldowns and the like.
+	// bCanFire handles weapon cooldowns and the like.
 	if (!bCanFire) return false;
 
-	//No ammo behavior.
-	if (CurrentMagAmmo == 0)
-	{
-		if (NoAmmoSound != nullptr)
-		{
-			UGameplayStatics::PlaySoundAtLocation(this, NoAmmoSound, Player->GetActorLocation());
-		}
-		return false;
-	}
+	const bool hasAmmo = CurrentMagAmmo == 0;
+
+	PlayWeaponSound(hasAmmo);
+
+	if (!hasAmmo) return false;
+
 	bCanFire = false;
 	GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
-	
-	// Try and play the sound if specified
-	if (FireSound != nullptr)
-	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, Player->GetActorLocation());
-	}
+
 	
 	//Different delegate for the last shot the player has, so looping can be prevented.
 	if (CurrentMagAmmo != 0)
@@ -103,6 +96,21 @@ bool AWeaponActor::Fire()
 		GetWorld()->GetTimerManager().SetTimer(TimerHandle, EndDelegate, TimeBetweenShots, false);
 	return true;
 }
+
+void AWeaponActor::PlayWeaponSound(bool hasAmmo) const
+{
+	USoundBase* SoundToPlay = hasAmmo ? FireSound : NoAmmoSound;
+	switch(WeaponData->WeaponFireType)
+	{
+
+	case EWeaponFireType::Continuous:
+		break;
+	case EWeaponFireType::Discrete:
+	default:
+		UGameplayStatics::PlaySoundAtLocation(this, SoundToPlay, Player->GetActorLocation());
+	}
+}
+
 
 void AWeaponActor::EndFire()
 {
