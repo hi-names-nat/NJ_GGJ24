@@ -135,7 +135,7 @@ bool AAsPlayer::AddAmmoToWeapon(const int Ammo)
 
 void AAsPlayer::SwapWeapon()
 {
-	if (CurrentWeapon == nullptr || ReserveWeapon == nullptr) return;
+	if (ReserveWeapon == nullptr || CurrentWeapon == nullptr) return;
 	CurrentWeapon->UnEquip();
 	ReserveWeapon->Equip();
 	Swap(CurrentWeapon, ReserveWeapon);

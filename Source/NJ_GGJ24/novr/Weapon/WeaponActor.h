@@ -42,9 +42,9 @@ protected:
 	/**
 	 * @brief Action binding for begin & end fire. Used for animation.
 	 */
-	FEnhancedInputActionEventBinding* BeginFireBinding;
-	FEnhancedInputActionEventBinding* EndFireBinding;
-	FEnhancedInputActionEventBinding* ReloadBinding;
+	FEnhancedInputActionEventBinding* BeginFireBinding = nullptr;
+	FEnhancedInputActionEventBinding* EndFireBinding = nullptr;
+	FEnhancedInputActionEventBinding* ReloadBinding = nullptr;
 
 
 	////////////////////
