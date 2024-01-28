@@ -84,12 +84,14 @@ void AAsPlayer::Move(const FInputActionValue& Value)
 	// input is a Vector2D
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 
+	UE_LOG(LogTemp, Log, TEXT("HELLO THIS IS %s"), *MovementVector.ToString());
+
 	if (Controller != nullptr)
 	{
-		// add movement 
-		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
-		AddMovementInput(GetActorRightVector(), MovementVector.X);
-	}
+		// add movement
+		AddMovementInput(GetActorForwardVector(), MovementVector.X);
+		AddMovementInput(GetActorRightVector(), MovementVector.Y);
+	} 
 }
 
 void AAsPlayer::Look(const FInputActionValue& Value)
