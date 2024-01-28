@@ -129,7 +129,6 @@ void AWeaponActor::FinishReload()
 
 bool AWeaponActor::Equip()
 {
-	if (!BeginFireBinding || !EndFireBinding) return false;
 	// Set up action bindings
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Player->GetController()))
 	{
@@ -180,9 +179,10 @@ void AWeaponActor::Interact(APlayerController* PlayerController)
 	if (isOwned)return;
 	if (auto PlayerCharacter = Cast<AAsPlayer>(PlayerController->GetPawn()))
 	{
+		Player = PlayerCharacter;
+		Owner = PlayerCharacter;
 		PlayerCharacter->SetWeaponInSlot(this);
 		AttachToActor(PlayerCharacter, FAttachmentTransformRules::SnapToTargetNotIncludingScale, "GunRoot");
-		Owner = PlayerCharacter;
 		WeaponWorldmodel->bOwnerNoSee = true;
 		WeaponViewmodel->bOnlyOwnerSee = true;
 		isOwned=true;
