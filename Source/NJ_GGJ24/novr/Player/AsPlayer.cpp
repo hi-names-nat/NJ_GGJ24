@@ -149,12 +149,26 @@ bool AAsPlayer::HasEmptySlot() const
 void AAsPlayer::SetWeaponInSlot(AWeaponActor* newWeapon)
 {
 	if (newWeapon == nullptr) return;
-	if (ReserveWeapon!=nullptr) CurrentWeapon = newWeapon;
-	else
+
+	// Have two weapons
+	if (ReserveWeapon != nullptr && CurrentWeapon != nullptr)
+	{
+		CurrentWeapon->Drop();
+		CurrentWeapon = newWeapon;
+	}
+	// Have only one weapon
+	else if (CurrentWeapon != nullptr)
 	{
 		ReserveWeapon = newWeapon;
 		SwapWeapon();
-	};
+	}
+	// No weapons
+	else
+	{
+		CurrentWeapon = newWeapon;
+	}
+
+	CurrentWeapon->Equip();
 }
 
 void AAsPlayer::Jump()

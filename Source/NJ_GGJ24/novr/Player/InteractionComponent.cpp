@@ -36,8 +36,7 @@ void UInteractionComponent::AttemptInteract()
 	{
 		t->Interact(Cast<APlayerController>(Owner->GetController()));
 	}
-	else
-	if (auto c = Cast<IInteractInterface>(Out_Hit.Component->GetOwner()))
+	else if (auto c = Cast<IInteractInterface>(Out_Hit.Component->GetOwner()))
 	{
 		c->Interact(Cast<APlayerController>(Owner->GetController()));
 	}
